@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="google-site-verification" content="Djir0QuBIc8nx8T1Bke5hGWxuXX83BhhgG2by_tto2g" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Name Generator(xolisa)</title>
+    <style>
+        body {
+            font-family: "Minecraft", Arial, sans-serif;
+            background-color: #b0c4de;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #3d9ecc;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #randomName {
+            font-size: 24px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Name Generator</h1>
+        <select id="languageSelect">
+            <option value="English">English</option>
+            <option value="Spanish">Spanish</option>
+		<option value="French">French</option>
+  		<option value="German">German</option>
+ 		 <option value="Chinese">Chinese</option>
+  		<option value="Japanese">Japanese</option>
+  		<option value="Russian">Russian</option>
+  		<option value="Arabic">Arabic</option>
+  		<option value="Hindi">Hindi</option>
+  		<option value="Portuguese">Portuguese</option>
+  		<option value="Korean">Korean</option>
+xolisa masokane
+            <!-- Add more language options as needed -->
+        </select>
+        <button id="generateBtn">Generate Name</button>
+        <p id="randomName"></p>
+    </div>
+
+    <script>
+        const namesByLanguage = {
+            "English": ["John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Robert", "Isabella"],
+            "Spanish": ["Juan", "María", "Miguel", "Sofía", "Carlos", "Ana", "Pedro", "Laura", "José", "Isabel"],
+	    "French": ["Jean", "Marie", "Pierre", "Catherine", "Michel", "Isabelle", "Sophie", "David", "Alexandre", "Émilie"],
+    	    "German": ["Hans", "Peter", "Thomas", "Andrea", "Michael", "Stefan", "Laura", "Julia", "Anna", "Maria"],
+   	    "Chinese": ["Zhang", "Wang", "Li", "Liu", "Chen", "Yang", "Zhao", "Huang", "Zhou", "Wu"],
+    	    "Japanese": ["Sato", "Suzuki", "Takahashi", "Tanaka", "Watanabe", "Ito", "Yamamoto", "Nakamura", "Kobayashi", "Kato"],
+    	    "Russian": ["Ivanov", "Smirnov", "Kuznetsov", "Popov", "Vasilyev", "Petrov", "Sokolov", "Mikhailov", "Fedorov", "Morozov"],
+    	    "Arabic": ["Mohammed", "Ahmed", "Ali", "Hassan", "Khalid", "Omar", "Abdullah", "Saeed", "Mahmoud", "Youssef"],
+   	    "Hindi": ["Singh", "Kumar", "Sharma", "Verma", "Das", "Patel", "Yadav", "Gupta", "Singh", "Sharma"],
+   	    "Portuguese": ["Silva", "Santos", "Oliveira", "Pereira", "Costa", "Rodrigues", "Martins", "Ferreira", "Pinto", "Cruz"],
+   	    "Korean": ["Kim", "Lee", "Park", "Choi", "Cho", "Kang", "Yoon", "Jung", "Hwang", "Shin"],
+
+            // Add more languages and names as needed
+        };
+
+        const surnamesByLanguage = {
+            "English": ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"],
+            "Spanish": ["González", "Rodríguez", "Fernández", "López", "Martínez", "Sánchez", "Pérez", "Gómez", "Díaz", "Hernández"],
+"English": ["John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Robert", "Isabella"],
+            "Spanish": ["Juan", "María", "Miguel", "Sofía", "Carlos", "Ana", "Pedro", "Laura", "José", "Isabel"],
+	    "French": ["Jean", "Marie", "Pierre", "Catherine", "Michel", "Isabelle", "Sophie", "David", "Alexandre", "Émilie"],
+    	    "German": ["Hans", "Peter", "Thomas", "Andrea", "Michael", "Stefan", "Laura", "Julia", "Anna", "Maria"],
+   	    "Chinese": ["Zhang", "Wang", "Li", "Liu", "Chen", "Yang", "Zhao", "Huang", "Zhou", "Wu"],
+    	    "Japanese": ["Sato", "Suzuki", "Takahashi", "Tanaka", "Watanabe", "Ito", "Yamamoto", "Nakamura", "Kobayashi", "Kato"],
+    	    "Russian": ["Ivanov", "Smirnov", "Kuznetsov", "Popov", "Vasilyev", "Petrov", "Sokolov", "Mikhailov", "Fedorov", "Morozov"],
+    	    "Arabic": ["Mohammed", "Ahmed", "Ali", "Hassan", "Khalid", "Omar", "Abdullah", "Saeed", "Mahmoud", "Youssef"],
+   	    "Hindi": ["Singh", "Kumar", "Sharma", "Verma", "Das", "Patel", "Yadav", "Gupta", "Singh", "Sharma"],
+   	    "Portuguese": ["Silva", "Santos", "Oliveira", "Pereira", "Costa", "Rodrigues", "Martins", "Ferreira", "Pinto", "Cruz"],
+   	    "Korean": ["Kim", "Lee", "Park", "Choi", "Cho", "Kang", "Yoon", "Jung", "Hwang", "Shin"],
+
+
+            // Add more languages and surnames as needed
+        };
+
+        function generateName(language) {
+            const randomName = namesByLanguage[language][Math.floor(Math.random() * namesByLanguage[language].length)];
+            const randomSurname = surnamesByLanguage[language][Math.floor(Math.random() * surnamesByLanguage[language].length)];
+            return `${randomName} ${randomSurname}`;
+        }
+
+        function displayRandomName(language) {
+            const randomName = generateName(language);
+            document.getElementById("randomName").textContent = randomName;
+        }
+
+        document.getElementById("generateBtn").addEventListener("click", function() {
+            const selectedLanguage = document.getElementById("languageSelect").value;
+            displayRandomName(selectedLanguage);
+        });
+    </script>
+</body>
+</html>
